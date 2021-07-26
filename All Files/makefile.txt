@@ -1,0 +1,25 @@
+all: map1
+
+map1: ass1main.c readdata.o point.o findkey.o linkedlist.o kdtree.o filltree.o
+	gcc -g -o map1 ass1main.c readdata.o point.o findkey.o linkedlist.o kdtree.o filltree.o -g -lm
+
+readdata.o : readdata.c readdata.h
+	gcc -g -o readdata.o -c -Wall readdata.c
+
+point.o: point.c point.h
+	gcc -g -o point.o -c -Wall point.c
+
+findkey.o: findkey.c findkey.h
+	gcc -g -o findkey.o -c -Wall findkey.c
+
+linkedlist.o: linkedlist.c linkedlist.h
+	gcc -g -o linkedlist.o -c -Wall linkedlist.c
+
+kdtree.o: kdtree.c kdtree.h
+	gcc -g -o kdtree.o -c -Wall kdtree.c
+
+filltree.o: filltree.c filltree.h
+	gcc -g -o filltree.o -c -Wall filltree.c
+
+run: map1
+	valgrind --leak-check=full --track-origins=yes ./map1 data_random.csv output.txt < keys.txt

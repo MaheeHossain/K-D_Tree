@@ -1,0 +1,19 @@
+all: map1
+
+map1: nmain.c llist.o data2.o utils2.o point.o
+	gcc -g -o map1 nmain.c llist.o data2.o utils2.o point.o -g -lm
+
+llist.o : llist.c llist.h
+	gcc -g -o llist.o -c -Wall llist.c
+
+data2.o: data2.c data2.h
+	gcc -g -o data2.o -c -Wall data2.c
+
+utils2.o: utils2.c utils2.h
+	gcc -g -o utils2.o -c -Wall utils2.c
+
+point.o: point.c point.h
+	gcc -g -o point.o -c -Wall point.c
+
+run: map1
+	valgrind --leak-check=full --track-origins=yes ./map1 data_random.csv output.txt < keys.txts

@@ -1,0 +1,25 @@
+all: map1
+
+map1: main2.c ll.o point.o data.o read.o dict.o utils.o
+	gcc -g -o map1 main2.c ll.o point.o data.o read.o dict.o utils.o -lm -g
+
+ll.o : ll.c ll.h
+	gcc -g -o ll.o -c -Wall ll.c
+
+point.o: point.c point.h
+	gcc -g -o point.o -c -Wall point.c
+
+data.o: data.c data.h
+	gcc -g -o data.o -c -Wall data.c
+
+read.o: read.c read.h
+	gcc -g -o read.o -c -Wall read.c
+
+dict.o: dict.c dict.h
+	gcc -g -o dict.o -c -Wall dict.c
+
+utils.o: utils.c utils.h
+	gcc -g -o utils.o -c -Wall utils.c
+
+run: map1
+	valgrind --leak-check=full --track-origins=yes ./map1 data_random.csv output.txt < keys.txt
